@@ -41,11 +41,11 @@ namespace pic_dir_rnd
 
             fil = dir.GetFiles();
 
-            var length = fil.Length;
+            //var length = fil.Length;
 
-            int index = new Random().Next(0, length);
-            MessageBox.Show(index.ToString());
-            MessageBox.Show(fil[index].FullName);
+            //int index = new Random().Next(0, length);
+            //MessageBox.Show(index.ToString());
+            //MessageBox.Show(fil[index].FullName);
         }
 
         /// <summary>
@@ -56,16 +56,17 @@ namespace pic_dir_rnd
         {
             //开始工作
             //随机要添加的垃圾数量
-            int num = new Random().Next(6, 777);
+            var rnd = new Random();
+            int num = rnd.Next(6, 777);
 
             for(int i = 0; i < num; ++i)
             {
                 var length = fil.Length;
                 //随机文件名
-                string rndFileName = listBox1.GetItemText(listBox1.Items[new Random().Next(0, listBox1.Items.Count)]) + 
-                    listBox2.GetItemText(listBox2.Items[new Random().Next(0, listBox2.Items.Count)]) + 
-                    listBox3.GetItemText(listBox3.Items[new Random().Next(0, listBox3.Items.Count)]) +
-                    (new Random().Next(0, 100) % 2 == 0 ? ".png" : ".jpg");
+                string rndFileName = listBox1.GetItemText(listBox1.Items[rnd.Next(0, listBox1.Items.Count)]) + 
+                    listBox2.GetItemText(listBox2.Items[rnd.Next(0, listBox2.Items.Count)]) + 
+                    listBox3.GetItemText(listBox3.Items[rnd.Next(0, listBox3.Items.Count)]) +
+                    (rnd.Next(0, 100) % 2 == 0 ? ".png" : ".jpg");
                 //如果不存在就丢一个过去
                 if(!File.Exists(Path.Combine(path,rndFileName)))
                     File.Copy(fil[new Random().Next(0, length)].FullName,Path.Combine(path, rndFileName));
@@ -105,6 +106,8 @@ namespace pic_dir_rnd
 
             textBox1.ReadOnly = false;
             textBox2.ReadOnly = false;
+
+            MessageBox.Show("轰炸成功！！！");
         }
     }
 }
